@@ -1,0 +1,302 @@
+RESULT1:
+* About to connect() to www.google.co.th port 80 (#0)
+*   Trying 172.217.4.99...
+* Connected to www.google.co.th (172.217.4.99) port 80 (#0)
+> GET / HTTP/1.1
+> Host: www.google.co.th
+> Connection: keep-alive
+> Upgrade-Insecure-Requests: 1
+> User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+> Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+> Accept-Encoding: gzip, deflate
+> Accept-Language: en-US,en;q=0.9
+> 
+< HTTP/1.1 200 OK
+< Location: https://secure.wifi.nstda.or.th/fs/customwebauth/login.html?switch_url=https://secure.wifi.nstda.or.th/login.html&ap_mac=0c:d9:96:38:e9:60&client_mac=90:61:ae:c4:75:07&wlan=NSTDA-WIFI&redirect=www.google.co.th/
+< Content-Type: text/html
+< Content-Length: 463
+< 
+<HTML><HEAD><TITLE> Web Authentication Redirect</TITLE><META http-equiv="Cache-control" content="no-cache"><META http-equiv="Pragma" content="no-cache"><META http-equiv="Expires" content="-1"><META http-equiv="refresh" content="1; URL=https://secure.wifi.nstda.or.th/fs/customwebauth/login.html?switch_url=https://secure.wifi.nstda.or.th/login.html&ap_mac=0c:d9:96:38:e9:60&client_mac=90:61:ae:c4:75:07&wlan=NSTDA-WIFI&redirect=www.google.co.th/"></HEAD></HTML>
+* Connection #0 to host www.google.co.th left intact
+
+RESULT2:
+* About to connect() to secure.wifi.nstda.or.th port 443 (#0)
+*   Trying 192.168.150.150...
+* Connected to secure.wifi.nstda.or.th (192.168.150.150) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+* skipping SSL peer certificate verification
+* SSL connection using TLS_RSA_WITH_AES_256_CBC_SHA
+* Server certificate:
+* 	subject: CN=192.168.150.150,OU=DeviceSSL (WebAuth),O=Cisco Systems Inc.,C=US
+* 	start date: May 03 00:00:01 2018 GMT
+* 	expire date: May 03 00:00:01 2028 GMT
+* 	common name: 192.168.150.150
+* 	issuer: CN=192.168.150.150,OU=DeviceSSL (WebAuth),O=Cisco Systems Inc.,C=US
+> GET /fs/customwebauth/login.html?switch_url=https://secure.wifi.nstda.or.th/login.html&ap_mac=0c:d9:96:38:e9:60&client_mac=90:61:ae:c4:75:07&wlan=NSTDA-WIFI&redirect=www.google.co.th/ HTTP/1.1
+> Host: secure.wifi.nstda.or.th
+> Connection: keep-alive
+> Upgrade-Insecure-Requests: 1
+> User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+> Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+> Accept-Encoding: gzip, deflate, br
+> Accept-Language: en-US,en;q=0.9
+> 
+< HTTP/1.1 200 OK
+< Date: Thu, 14 Jun 2018 06:24:37 GMT
+< Content-Length: 4372
+< Content-Type: text/html
+< Last-Modified: Wed, 14 Oct 2015 00:28:38 GMT
+< Cache-Control: public,max-age=3600
+< X-Frame-Options: sameorigin
+< 
+<html>
+<head>
+
+<meta http-equiv="Pragma" content="no-cache"> <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"> 
+<title>&#3619;&#3632;&#3610;&#3610;&#3648;&#3588;&#3619;&#3639;&#3629;&#3586;&#3656;&#3634;&#3618;&#3652;&#3619;&#3657;&#3626;&#3634;&#3618; &#3626;&#3623;&#3607;&#3594;. / NSTDA Wireless Service</title>
+
+<script>
+function submitAction(){
+      var link = document.location.href;
+      var searchString = "redirect=";
+      var equalIndex = link.indexOf(searchString);
+      var redirectUrl = "";
+
+      if (document.forms[0].action == "") {
+      var url = window.location.href;
+      var args = new Object();
+      var query = location.search.substring(1);
+      var pairs = query.split("&");
+          for(var i=0;i<pairs.length;i++){
+              var pos = pairs[i].indexOf('=');
+              if(pos == -1) continue;
+              var argname = pairs[i].substring(0,pos);
+              var value = pairs[i].substring(pos+1);
+              args[argname] = unescape(value);
+          }
+          document.forms[0].action = args.switch_url;       
+      }       
+      if(equalIndex >= 0) {
+            equalIndex += searchString.length;
+            redirectUrl = "";
+            redirectUrl += link.substring(equalIndex);
+      }
+      if(redirectUrl.length > 255)
+      redirectUrl = redirectUrl.substring(0,255);
+      document.forms[0].redirect_url.value = redirectUrl;
+      document.forms[0].buttonClicked.value = 4;
+      document.forms[0].submit();
+}
+
+function loadAction(){
+     var url = window.location.href;
+     var args = new Object();
+     var query = location.search.substring(1);
+     var pairs = query.split("&");
+     for(var i=0;i<pairs.length;i++){
+          var pos = pairs[i].indexOf('=');
+          if(pos == -1) continue;
+          var argname = pairs[i].substring(0,pos);
+          var value = pairs[i].substring(pos+1);
+          args[argname] = unescape(value);
+     }
+
+
+     document.forms[0].action = args.switch_url;
+
+     // This is the status code returned from webauth login action
+     // Any value of status code from 1 to 5 is error condition and user
+     // should be shown error as below or modify the message as it suits
+     // the customer
+
+     if(args.statusCode == 1){
+        alert("You are already logged in. No further action is required on your part.");
+     }
+     else if(args.statusCode == 2){
+        alert("You are not configured to authenticate against web portal. No further action is required on your part.");
+     }
+     else if(args.statusCode == 3){
+        alert("The username specified cannot be used at this time. Perhaps the user is already logged into the system?");
+     }
+     else if(args.statusCode == 4){
+        alert("Wrong username and password. Please try again.");
+     }
+     else if(args.statusCode == 5){
+        alert("The User Name and Password combination you have entered is invalid.  Please try again.");
+     }
+}
+
+</script>
+
+</head>
+
+<body bgcolor=#FFFFFF topmargin="50" marginheight="50" onLoad="loadAction();"> 
+<form method="post"> <input TYPE="hidden" NAME="buttonClicked" SIZE="16" MAXLENGTH="15" value="0"> <input TYPE="hidden" NAME="redirect_url" SIZE="255" MAXLENGTH="255" VALUE=""> <input TYPE="hidden" NAME="err_flag" SIZE="16" MAXLENGTH="15" value="0">
+
+<table border="0" cellspacing="0" cellpadding="0" > <tr> <td></td></tr>
+<!--<h1 align=center><font color="#336699">Welcome to Your_Company_Here</font></h1>-->
+<center><IMG SRC="./wifilogin.png" align=bottom></center>
+<h3 align=center><font color="#000000">Please enter your username/password</font></h3>
+<h4 align=center><font color="#000000">Username&nbsp;&nbsp;:&nbsp;<input type="TEXT" name="username" SIZE="25" MAXLENGTH="63" VALUE=""></font></h4>
+<h4 align=center><font color="#000000">Password&nbsp;&nbsp;:&nbsp;<input type="Password" name="password" SIZE="25" MAXLENGTH="63" VALUE=""></font></h4>
+<h4 align=center><font size="20" color="#000000"><input type="button" name="Submit" value="Login" class="button" onClick="submitAction();"></h4></font><p></p>
+
+<center><p>For assistance, please contact your NSTDA Coordinator or WiFi Helpdesk at ext. 1675 (only in office hours) , e-mail : wifihelpdesk@nstda.or.th</p></center>
+</td>
+</tr>
+</table> 
+</div>
+</form>
+</body>
+</html>
+* Connection #0 to host secure.wifi.nstda.or.th left intact
+
+RESULT3:
+* About to connect() to secure.wifi.nstda.or.th port 443 (#0)
+*   Trying 192.168.150.150...
+* Connected to secure.wifi.nstda.or.th (192.168.150.150) port 443 (#0)
+* Initializing NSS with certpath: sql:/etc/pki/nssdb
+* skipping SSL peer certificate verification
+* SSL connection using TLS_RSA_WITH_AES_256_CBC_SHA
+* Server certificate:
+* 	subject: CN=192.168.150.150,OU=DeviceSSL (WebAuth),O=Cisco Systems Inc.,C=US
+* 	start date: May 03 00:00:01 2018 GMT
+* 	expire date: May 03 00:00:01 2028 GMT
+* 	common name: 192.168.150.150
+* 	issuer: CN=192.168.150.150,OU=DeviceSSL (WebAuth),O=Cisco Systems Inc.,C=US
+> POST /login.html HTTP/1.1
+> Host: secure.wifi.nstda.or.th
+> Connection: keep-alive
+> Cache-Control: max-age=0
+> Origin: https://secure.wifi.nstda.or.th
+> Upgrade-Insecure-Requests: 1
+> Content-Type: application/x-www-form-urlencoded
+> User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36
+> Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+> Referer: https://secure.wifi.nstda.or.th/fs/customwebauth/login.html?switch_url=https://secure.wifi.nstda.or.th/login.html&ap_mac=0c:d9:96:38:e9:60&client_mac=90:61:ae:c4:75:07&wlan=NSTDA-WIFI&redirect=www.google.co.th/
+> Accept-Encoding: gzip, deflate, br
+> Accept-Language: en-US,en;q=0.9
+> Content-Length: 101
+> 
+* upload completely sent off: 101 out of 101 bytes
+< HTTP/1.1 100 Continue
+< HTTP/1.1 200 OK
+< Date: Thu, 14 Jun 2018 06:35:56 GMT
+< Transfer-Encoding: chunked
+< Content-Type: text/html
+< Pragma: no-cache
+< Expires: Thu, 14 Jun 2018 06:35:56 GMT
+< Last-Modified: Thu, 14 Jun 2018 06:35:56 GMT
+< Cache-Control: no-cache
+< X-Frame-Options: sameorigin
+< 
+<html>
+<head>
+<style>
+<!--
+h1 {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	color: #787a7f;
+	font-size: 19px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: #336699;
+	padding: 10px 5px 0px 0px;
+}
+td.caption {
+	font-size: 12px;
+	font-weight: normal;
+	color: #000000;
+	padding: 2px;
+}
+input.button {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #c9cbd4;
+	color: #333333;
+	width: 80px;
+}
+-->
+</style>
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<title>Logged In</title>
+</head>
+<body bgcolor="#DADCE5" topmargin="50" marginheight="50">
+<FORM method="post" ACTION="/login_success.html">
+<INPUT TYPE="hidden" NAME="redirect_url" SIZE="255" MAXLENGTH="255" VALUE="www.nstda.or.th">
+<INPUT TYPE="hidden" NAME="logoutPageName" SIZE="255" MAXLENGTH="255" VALUE="logout.html">
+</FORM>
+
+<noscript>
+	<meta HTTP-EQUIV="REFRESH" content="0; url=www.nstda.or.th">
+</noscript>
+<script>
+var logoutPage = document.forms[0].logoutPageName.value;
+function getLogout()
+{
+   parent.location.href = logoutPage;
+}
+</script>
+  <div align="center">
+    <h1>Web Authentication</h1>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center">Login Successful</td>
+      </tr>
+      <tr>
+        <td align="center" class="caption" width="340"> You can now use all our regular network services over the wireless network.<br>
+          Keep the small logout window around so that you can logout successfully when done. Else you can always goto following url to logout:
+          
+           
+	        <a href="javascript:getLogout();">https://192.168.150.150/<script> document.write(logoutPage) </script> </a></td>
+           
+          
+      </tr>
+      <tr>
+        <td class="caption">&nbsp;</td>
+
+      </tr>
+<script>
+/* Note: Value 'ILLEGAL_ACCESS' means this page has been attemted to access directly rather than a
+    redirect from login page. So in that case better redirect user to login page again */
+    if(document.forms[0].redirect_url.value != "ILLEGAL_ACCESS"){
+
+        var editWindow = window.open(logoutPage,"AirespaceWebAuthLogoutPage","left=0 top=0 menubar=yes,scrollbars=yes,toolbar=yes,width=310,height=250,status=yes,resizable=yes");
+
+        if(document.forms[0].redirect_url.value != ""){
+            var redirurl = document.forms[0].redirect_url.value;
+            var searchString = "http";
+            var equalIndex = redirurl.indexOf(searchString);
+            if(equalIndex != 0) {
+                redirurl = "http://" + redirurl;
+            }
+            window.location.href = redirurl;
+        }
+     }
+     else
+       window.location.href = "login.html";
+</script>
+    </table>
+  </div>
+
+</body>
+<HEAD>
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</HEAD>
+</html>
+
+
+* Connection #0 to host secure.wifi.nstda.or.th left intact
+
+
